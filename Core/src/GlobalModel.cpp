@@ -315,6 +315,7 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
                        GPUTexture * rgb,
                        GPUTexture * depthRaw,
                        GPUTexture * depthFiltered,
+					   GPUTexture * semantics,
                        GPUTexture * indexMap,
                        GPUTexture * vertConfMap,
                        GPUTexture * colorTimeMap,
@@ -368,6 +369,7 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, rgb->texture->tid);
+//    glBindTexture(GL_TEXTURE_2D, semantics->texture->tid);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthRaw->texture->tid);

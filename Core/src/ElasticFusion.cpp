@@ -198,6 +198,14 @@ void ElasticFusion::createTextures()
                                                       GL_LUMINANCE,
                                                       GL_FLOAT,
                                                       true);
+
+    textures[GPUTexture::SEMANTICS] = new GPUTexture(Resolution::getInstance().width(),
+													 Resolution::getInstance().height(),
+													 GL_RGBA,
+													 GL_RGB,
+													 GL_UNSIGNED_BYTE,
+													 true,
+													 true);
 }
 
 void ElasticFusion::createCompute()
@@ -265,6 +273,7 @@ void ElasticFusion::processFrame(const unsigned char * rgb,
 
     textures[GPUTexture::DEPTH_RAW]->texture->Upload(depth, GL_LUMINANCE_INTEGER_EXT, GL_UNSIGNED_SHORT);
     textures[GPUTexture::RGB]->texture->Upload(rgb, GL_RGB, GL_UNSIGNED_BYTE);
+//    textures[GPUTexture::SEMANTICS]->texture->Upload(semantics, GL_RGB, GL_UNSIGNED_BYTE);
 
     TICK("Preprocess");
 
@@ -579,6 +588,7 @@ void ElasticFusion::processFrame(const unsigned char * rgb,
                              textures[GPUTexture::RGB],
                              textures[GPUTexture::DEPTH_METRIC],
                              textures[GPUTexture::DEPTH_METRIC_FILTERED],
+							 textures[GPUTexture::SEMANTICS],
                              indexMap.indexTex(),
                              indexMap.vertConfTex(),
                              indexMap.colorTimeTex(),

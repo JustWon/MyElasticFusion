@@ -18,6 +18,8 @@
  
 #include "MainController.h"
 #include "opencv2/opencv.hpp"
+#include <string>
+#include <iostream>
 
 MainController::MainController(int argc, char * argv[])
  : good(true),
@@ -274,15 +276,29 @@ void MainController::run()
                     *currentPose = groundTruthOdometry->getTransformation(logReader->timestamp);
                 }
 
+                std::stringstream rgb_file_name, depth_file_name;
+                static int idx = 1;
+
                 unsigned char * semantics;
-                static int idx = 0;
-                cv::Mat semantic_img = cv::imread("/media/dongwonshin/Ubuntu Data/Datasets/Places365/Resized_images/val_256/Places365_val_00036486.jpg");
-                cv::namedWindow("test");
-                cv::imshow("test", semantic_img);
-                cv::waitKey(1);
-                semantics = semantic_img.data;
-                printf("processFrame\n");
-                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
+
+                rgb_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/rgb/" << idx << ".png";
+                unsigned char * rgb;
+                cv::Mat rgb_img = cv::imread(rgb_file_name.str());
+                cv::cvtColor(rgb_img, rgb_img, cv::COLOR_BGR2RGB);
+                rgb = rgb_img.data;
+
+                depth_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/depth/" << idx++ << ".png";
+                unsigned short * depth;
+				cv::Mat depth_img = cv::imread(depth_file_name.str(), CV_LOAD_IMAGE_ANYDEPTH);
+				depth = (unsigned short*)depth_img.data;
+
+//				cv::namedWindow("rgb_img"); cv::namedWindow("depth_img");
+//				cv::imshow("rgb_img", rgb_img);
+				cv::imshow("depth_img", depth_img);
+				cv::waitKey(1);
+
+//                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
+                eFusion->processFrame(rgb, depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
 
                 if(currentPose)
                 {

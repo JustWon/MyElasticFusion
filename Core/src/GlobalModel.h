@@ -64,6 +64,7 @@ class GlobalModel
                   GPUTexture * rgb,
                   GPUTexture * depthRaw,
                   GPUTexture * depthFiltered,
+				  GPUTexture * semantics,
                   GPUTexture * indexMap,
                   GPUTexture * vertConfMap,
                   GPUTexture * colorTimeMap,
