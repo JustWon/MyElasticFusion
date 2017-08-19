@@ -70,6 +70,7 @@ class ElasticFusion
          */
         EFUSION_API void processFrame(const unsigned char * rgb,
                           const unsigned short * depth,
+						  const unsigned char * semantics,
                           const int64_t & timestamp,
                           const Eigen::Matrix4f * inPose = 0,
                           const float weightMultiplier = 1.f,

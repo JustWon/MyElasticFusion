@@ -255,6 +255,7 @@ bool ElasticFusion::denseEnough(const Img<Eigen::Matrix<unsigned char, 3, 1>> & 
 
 void ElasticFusion::processFrame(const unsigned char * rgb,
                                  const unsigned short * depth,
+								 const unsigned char * semantics,
                                  const int64_t & timestamp,
                                  const Eigen::Matrix4f * inPose,
                                  const float weightMultiplier,

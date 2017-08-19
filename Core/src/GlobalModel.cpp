@@ -258,7 +258,7 @@ void GlobalModel::renderPointCloud(pangolin::OpenGlMatrix mvp,
                                    const int time,
                                    const int timeDelta)
 {
-    std::shared_ptr<Shader> program = drawPoints ? drawProgram : drawSurfelProgram;
+	std::shared_ptr<Shader> program = drawPoints ? drawProgram : drawSurfelProgram;
 
     program->Bind();
 
@@ -291,11 +291,15 @@ void GlobalModel::renderPointCloud(pangolin::OpenGlMatrix mvp,
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE, reinterpret_cast<GLvoid*>(sizeof(Eigen::Vector4f) * 2));
 
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE, reinterpret_cast<GLvoid*>(sizeof(Eigen::Vector4f) * 1));
+
     glDrawTransformFeedback(GL_POINTS, vbos[target].second);
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(3);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     program->Unbind();

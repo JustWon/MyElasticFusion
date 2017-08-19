@@ -21,6 +21,7 @@
 layout (location = 0) in vec4 position;
 layout (location = 1) in vec4 color;
 layout (location = 2) in vec4 normal;
+layout (location = 3) in vec4 semantics;
 
 uniform mat4 MVP;
 uniform float threshold;
@@ -45,7 +46,7 @@ void main()
     {
         colorType0 = colorType;
         drawWindow0 = drawWindow;
-	    vColor = color;
+	    vColor = semantics;
 	    vPosition = position;
 	    vNormRad = normal;
 	    vMVP = MVP;

@@ -36,6 +36,7 @@ uniform sampler2D normSamp;
 
 void main()
 {
+    // Dong-Won Shin: calculating the index
     int intY = gl_VertexID / int(texDim);
     int intX = gl_VertexID - (intY * int(texDim));
 

@@ -73,6 +73,8 @@ void main()
             vColor0 = (vec3(.5f, .5f, .5f) * abs(dot(vNormRad[0].xyz, vec3(1.0, 1.0, 1.0)))) + vec3(0.1f, 0.1f, 0.1f);
         }
     
+
+
         if(drawWindow0[0] == 1 && vTime[0] - vColor[0].w > timeDelta0[0])
         {
             vColor0 *= 0.25;

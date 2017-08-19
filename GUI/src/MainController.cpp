@@ -17,6 +17,7 @@
  */
  
 #include "MainController.h"
+#include "opencv2/opencv.hpp"
 
 MainController::MainController(int argc, char * argv[])
  : good(true),
@@ -273,7 +274,15 @@ void MainController::run()
                     *currentPose = groundTruthOdometry->getTransformation(logReader->timestamp);
                 }
 
-                eFusion->processFrame(logReader->rgb, logReader->depth, logReader->timestamp, currentPose, weightMultiplier);
+                unsigned char * semantics;
+                static int idx = 0;
+                cv::Mat semantic_img = cv::imread("/media/dongwonshin/Ubuntu Data/Datasets/Places365/Resized_images/val_256/Places365_val_00036486.jpg");
+                cv::namedWindow("test");
+                cv::imshow("test", semantic_img);
+                cv::waitKey(1);
+                semantics = semantic_img.data;
+                printf("processFrame\n");
+                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
 
                 if(currentPose)
                 {
