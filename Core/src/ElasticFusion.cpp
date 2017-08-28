@@ -959,6 +959,7 @@ void ElasticFusion::setFernThresh(const float & val)
 void ElasticFusion::setDepthCutoff(const float & val)
 {
     depthCutoff = val;
+//	depthCutoff = 1000.0f;
 }
 
 const bool & ElasticFusion::getLost() //lel

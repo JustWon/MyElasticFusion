@@ -278,27 +278,30 @@ void MainController::run()
 
                 std::stringstream rgb_file_name, depth_file_name;
                 static int idx = 1;
-
                 unsigned char * semantics;
 
                 rgb_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/rgb/" << idx << ".png";
-                unsigned char * rgb;
                 cv::Mat rgb_img = cv::imread(rgb_file_name.str());
                 cv::cvtColor(rgb_img, rgb_img, cv::COLOR_BGR2RGB);
-                rgb = rgb_img.data;
+
 
                 depth_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/depth/" << idx++ << ".png";
-                unsigned short * depth;
 				cv::Mat depth_img = cv::imread(depth_file_name.str(), CV_LOAD_IMAGE_ANYDEPTH);
-				depth = (unsigned short*)depth_img.data;
+				for(int i = 0 ; i < 640 ; i++)
+					for (int j = 0 ;j < 480 ; j++)
+					{
+						// Dong-Won Shin: magic factor.... I don't know why.
+						depth_img.at<unsigned short>(j,i) /= 10;
+					}
 
-//				cv::namedWindow("rgb_img"); cv::namedWindow("depth_img");
-//				cv::imshow("rgb_img", rgb_img);
-				cv::imshow("depth_img", depth_img);
-				cv::waitKey(1);
+//				{
+//					cv::imshow("rgb_img", rgb_img);
+//					cv::imshow("depth_img", depth_img);
+//					cv::waitKey(1);
+//				}
 
 //                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
-                eFusion->processFrame(rgb, depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
+                eFusion->processFrame(rgb_img.data, (unsigned short*)depth_img.data, semantics, logReader->timestamp, currentPose, weightMultiplier);
 
                 if(currentPose)
                 {
