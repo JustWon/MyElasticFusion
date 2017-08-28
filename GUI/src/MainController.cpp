@@ -17,9 +17,9 @@
  */
  
 #include "MainController.h"
-#include "opencv2/opencv.hpp"
 #include <string>
 #include <iostream>
+#include "DW_Utils.hpp"
 
 MainController::MainController(int argc, char * argv[])
  : good(true),
@@ -276,32 +276,11 @@ void MainController::run()
                     *currentPose = groundTruthOdometry->getTransformation(logReader->timestamp);
                 }
 
-                std::stringstream rgb_file_name, depth_file_name;
-                static int idx = 1;
-                unsigned char * semantics;
-
-                rgb_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/rgb/" << idx << ".png";
-                cv::Mat rgb_img = cv::imread(rgb_file_name.str());
-                cv::cvtColor(rgb_img, rgb_img, cv::COLOR_BGR2RGB);
-
-
-                depth_file_name << "/home/dongwonshin/Downloads/rgbd_dataset_freiburg1_teddy/depth/" << idx++ << ".png";
-				cv::Mat depth_img = cv::imread(depth_file_name.str(), CV_LOAD_IMAGE_ANYDEPTH);
-				for(int i = 0 ; i < 640 ; i++)
-					for (int j = 0 ;j < 480 ; j++)
-					{
-						// Dong-Won Shin: magic factor.... I don't know why.
-						depth_img.at<unsigned short>(j,i) /= 10;
-					}
-
-//				{
-//					cv::imshow("rgb_img", rgb_img);
-//					cv::imshow("depth_img", depth_img);
-//					cv::waitKey(1);
-//				}
+                DW_Utils::TUMDatasetLoad();
 
 //                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
-                eFusion->processFrame(rgb_img.data, (unsigned short*)depth_img.data, semantics, logReader->timestamp, currentPose, weightMultiplier);
+                eFusion->processFrame(DW_Utils::rgb_img->data, (unsigned short*)DW_Utils::depth_img->data, DW_Utils::semantics,
+                		logReader->timestamp, currentPose, weightMultiplier);
 
                 if(currentPose)
                 {
