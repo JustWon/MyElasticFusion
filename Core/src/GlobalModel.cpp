@@ -267,7 +267,7 @@ void GlobalModel::renderPointCloud(pangolin::OpenGlMatrix mvp,
 
     program->setUniform(Uniform("threshold", threshold));
 
-    program->setUniform(Uniform("colorType", (drawSemantics ? 4 : drawNormals ? 1 : drawColors ? 2 : drawTimes ? 3 : 0)));
+    program->setUniform(Uniform("colorType", (drawSemantics ? 7 : drawNormals ? 1 : drawColors ? 2 : drawTimes ? 3 : 0)));
 
     program->setUniform(Uniform("unstable", drawUnstable));
 
