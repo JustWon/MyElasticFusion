@@ -35,8 +35,8 @@ class GUI
         GUI(bool liveCap, bool showcaseMode)
          : showcaseMode(showcaseMode)
         {
-            width = 1280;
-            height = 980;
+            width = 1920;
+            height = 1080;
             panel = 205;
 
             width += panel;
@@ -142,6 +142,7 @@ class GUI
             drawUnstable = new pangolin::Var<bool>("ui.Draw unstable points", false, true);
             drawPoints = new pangolin::Var<bool>("ui.Draw points", false, true);
             drawColors = new pangolin::Var<bool>("ui.Draw colors", showcaseMode, true);
+            drawSemantics = new pangolin::Var<bool>("ui.Draw semantics", false, true);
             drawFxaa = new pangolin::Var<bool>("ui.Draw FXAA", showcaseMode, true);
             drawWindow = new pangolin::Var<bool>("ui.Draw time window", false, true);
             drawNormals = new pangolin::Var<bool>("ui.Draw normals", false, true);
@@ -209,6 +210,7 @@ class GUI
             delete drawFilteredCloud;
             delete drawNormals;
             delete drawColors;
+            delete drawSemantics;
             delete drawGlobalModel;
             delete drawUnstable;
             delete drawPoints;
@@ -396,6 +398,7 @@ class GUI
                             * autoSettings,
                             * drawDefGraph,
                             * drawColors,
+							* drawSemantics,
                             * drawFxaa,
                             * drawGlobalModel,
                             * drawUnstable,

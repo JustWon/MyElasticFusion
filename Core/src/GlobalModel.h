@@ -51,6 +51,7 @@ class GlobalModel
                               const bool drawUnstable,
                               const bool drawNormals,
                               const bool drawColors,
+							  const bool drawSemantics,
                               const bool drawPoints,
                               const bool drawWindow,
                               const bool drawTimes,

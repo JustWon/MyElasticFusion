@@ -46,7 +46,7 @@ void main()
     {
         colorType0 = colorType;
         drawWindow0 = drawWindow;
-	    vColor = semantics;
+	    vColor = color;
 	    vPosition = position;
 	    vNormRad = normal;
 	    vMVP = MVP;

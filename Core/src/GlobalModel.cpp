@@ -252,6 +252,7 @@ void GlobalModel::renderPointCloud(pangolin::OpenGlMatrix mvp,
                                    const bool drawUnstable,
                                    const bool drawNormals,
                                    const bool drawColors,
+								   const bool drawSemantics,
                                    const bool drawPoints,
                                    const bool drawWindow,
                                    const bool drawTimes,
@@ -266,7 +267,7 @@ void GlobalModel::renderPointCloud(pangolin::OpenGlMatrix mvp,
 
     program->setUniform(Uniform("threshold", threshold));
 
-    program->setUniform(Uniform("colorType", (drawNormals ? 1 : drawColors ? 2 : drawTimes ? 3 : 0)));
+    program->setUniform(Uniform("colorType", (drawSemantics ? 4 : drawNormals ? 1 : drawColors ? 2 : drawTimes ? 3 : 0)));
 
     program->setUniform(Uniform("unstable", drawUnstable));
 
@@ -369,7 +370,6 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, rgb->texture->tid);
-//    glBindTexture(GL_TEXTURE_2D, semantics->texture->tid);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthRaw->texture->tid);
@@ -388,6 +388,10 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
 
     glActiveTexture(GL_TEXTURE6);
     glBindTexture(GL_TEXTURE_2D, normRadMap->texture->tid);
+
+    glActiveTexture(GL_TEXTURE7);
+    glBindTexture(GL_TEXTURE_2D, semantics->texture->tid);
+
 
     glBeginTransformFeedback(GL_POINTS);
 
@@ -413,6 +417,8 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
     TOCK("Fuse::Data");
 
     TICK("Fuse::Update");
+
+
     //Next we update the vertices at the indexes stored in the update textures
     //Using a transform feedback conditional on a texture sample
     updateProgram->Bind();
