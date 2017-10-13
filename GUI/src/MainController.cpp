@@ -277,9 +277,10 @@ void MainController::run()
                 }
 
                 DW_Utils::TUMDatasetLoad();
+//                DW_Utils::ICLNUIMDatasetLoad();
 
 //                eFusion->processFrame(logReader->rgb, logReader->depth, semantics, logReader->timestamp, currentPose, weightMultiplier);
-                eFusion->processFrame(DW_Utils::rgb_img->data, (unsigned short*)DW_Utils::depth_img->data, DW_Utils::semantics,
+                eFusion->processFrame(DW_Utils::rgb_img->data, (unsigned short*)DW_Utils::depth_img->data, DW_Utils::semantic_img->data,
                 		logReader->timestamp, currentPose, weightMultiplier);
 
                 if(currentPose)

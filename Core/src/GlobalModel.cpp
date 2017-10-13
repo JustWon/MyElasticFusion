@@ -368,8 +368,8 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, newUnstableVbo);
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, rgb->texture->tid);
-//    glBindTexture(GL_TEXTURE_2D, semantics->texture->tid);
+//    glBindTexture(GL_TEXTURE_2D, rgb->texture->tid);
+    glBindTexture(GL_TEXTURE_2D, semantics->texture->tid);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, depthRaw->texture->tid);
@@ -388,6 +388,8 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
 
     glActiveTexture(GL_TEXTURE6);
     glBindTexture(GL_TEXTURE_2D, normRadMap->texture->tid);
+
+
 
     glBeginTransformFeedback(GL_POINTS);
 
@@ -413,6 +415,8 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
     TOCK("Fuse::Data");
 
     TICK("Fuse::Update");
+
+
     //Next we update the vertices at the indexes stored in the update textures
     //Using a transform feedback conditional on a texture sample
     updateProgram->Bind();
