@@ -27,6 +27,7 @@ uniform float signMult;
 in vec4 vColor[];
 in vec4 vPosition[];
 in vec4 vNormRad[];
+in vec4 vSemantics[];
 in mat4 vMVP[];
 in int colorType0[];
 in int drawWindow0[];
@@ -67,6 +68,10 @@ void main()
             vColor0.z = 1.0f - vColor0.x - vColor0.y;
             
             vColor0.xyz *= abs(dot(vNormRad[0].xyz, vec3(1.0, 1.0, 1.0))) + vec3(0.1f, 0.1f, 0.1f);
+        }
+        else if(colorType0[0] == 7)
+        {
+            vColor0 = decodeColor(vSemantics[0].x);
         }
         else
         {

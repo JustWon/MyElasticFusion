@@ -34,6 +34,7 @@ uniform int timeDelta;
 out vec4 vColor;
 out vec4 vPosition;
 out vec4 vNormRad;
+out vec4 vSemantics;
 out mat4 vMVP;
 out int vTime;
 out int colorType0;
@@ -49,6 +50,7 @@ void main()
 	    vColor = color;
 	    vPosition = position;
 	    vNormRad = normal;
+        vSemantics = semantics;
 	    vMVP = MVP;
 	    vTime = time;
 	    timeDelta0 = timeDelta;

@@ -32,6 +32,7 @@ uniform usampler2D indexSampler;
 uniform sampler2D vertConfSampler;
 uniform sampler2D colorTimeSampler;
 uniform sampler2D normRadSampler;
+uniform sampler2D semanticsSampler;
 
 uniform vec4 cam; //cx, cy, 1/fx, 1/fy
 uniform float cols;
@@ -88,6 +89,7 @@ void main()
     
     //Color for color, obviously
     vColor = textureLod(cSampler, texcoord.xy, 0.0);
+    // vColor = textureLod(semanticsSampler, texcoord.xy, 0.0);
     
     vColor.x = encodeColor(vColor.xyz);
     vColor.y = 0;

@@ -97,11 +97,12 @@ GlobalModel::GlobalModel()
 
     updateProgram->Bind();
 
-    int locUpdate[3] =
+    int locUpdate[4] =
     {
         glGetVaryingLocationNV(updateProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(updateProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(updateProgram->programId(), "vNormRad0"),
+		glGetVaryingLocationNV(updateProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(updateProgram->programId(), 3, locUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -110,11 +111,12 @@ GlobalModel::GlobalModel()
 
     dataProgram->Bind();
 
-    int dataUpdate[3] =
+    int dataUpdate[4] =
     {
         glGetVaryingLocationNV(dataProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(dataProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(dataProgram->programId(), "vNormRad0"),
+		glGetVaryingLocationNV(dataProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(dataProgram->programId(), 3, dataUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -123,11 +125,12 @@ GlobalModel::GlobalModel()
 
     unstableProgram->Bind();
 
-    int unstableUpdate[3] =
+    int unstableUpdate[4] =
     {
         glGetVaryingLocationNV(unstableProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(unstableProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(unstableProgram->programId(), "vNormRad0"),
+		glGetVaryingLocationNV(unstableProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(unstableProgram->programId(), 3, unstableUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -136,11 +139,12 @@ GlobalModel::GlobalModel()
 
     initProgram->Bind();
 
-    int locInit[3] =
+    int locInit[4] =
     {
         glGetVaryingLocationNV(initProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(initProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(initProgram->programId(), "vNormRad0"),
+		glGetVaryingLocationNV(initProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(initProgram->programId(), 3, locInit, GL_INTERLEAVED_ATTRIBS);
@@ -346,6 +350,7 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
     dataProgram->setUniform(Uniform("vertConfSampler", 4));
     dataProgram->setUniform(Uniform("colorTimeSampler", 5));
     dataProgram->setUniform(Uniform("normRadSampler", 6));
+    dataProgram->setUniform(Uniform("semanticsSampler", 7));
     dataProgram->setUniform(Uniform("time", (float)time));
     dataProgram->setUniform(Uniform("weighting", weighting));
 
@@ -359,6 +364,7 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
     dataProgram->setUniform(Uniform("texDim", (float)TEXTURE_DIMENSION));
     dataProgram->setUniform(Uniform("pose", pose));
     dataProgram->setUniform(Uniform("maxDepth", depthCutoff));
+
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, uvo);
