@@ -38,7 +38,7 @@ namespace DW_Utils {
 		}
 	};
 //	associator asso("/media/dongwonshin/Ubuntu Data/Datasets/ICL-NUIM/living_room_traj0_frei_png/");
-	associator asso("/media/dongwonshin/Ubuntu Data/Datasets/TUM/3D Object Reconstruction/rgbd_dataset_freiburg3_teddy/rgbd_dataset_freiburg3_teddy/");
+	associator asso("/home/dongwonshin/Desktop/MyElasticFusion/Dataset/rgbd_dataset_freiburg3_teddy/rgbd_dataset_freiburg3_teddy/");
 
 
 
