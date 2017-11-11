@@ -97,12 +97,11 @@ GlobalModel::GlobalModel()
 
     updateProgram->Bind();
 
-    int locUpdate[4] =
+    int locUpdate[3] =
     {
         glGetVaryingLocationNV(updateProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(updateProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(updateProgram->programId(), "vNormRad0"),
-		glGetVaryingLocationNV(updateProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(updateProgram->programId(), 3, locUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -116,7 +115,7 @@ GlobalModel::GlobalModel()
         glGetVaryingLocationNV(dataProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(dataProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(dataProgram->programId(), "vNormRad0"),
-		glGetVaryingLocationNV(dataProgram->programId(), "vColor0"),
+		glGetVaryingLocationNV(dataProgram->programId(), "vSemantic0"),
     };
 
     glTransformFeedbackVaryingsNV(dataProgram->programId(), 3, dataUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -125,12 +124,11 @@ GlobalModel::GlobalModel()
 
     unstableProgram->Bind();
 
-    int unstableUpdate[4] =
+    int unstableUpdate[3] =
     {
         glGetVaryingLocationNV(unstableProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(unstableProgram->programId(), "vColor0"),
-        glGetVaryingLocationNV(unstableProgram->programId(), "vNormRad0"),
-		glGetVaryingLocationNV(unstableProgram->programId(), "vColor0"),
+        glGetVaryingLocationNV(unstableProgram->programId(), "vNormRad0")
     };
 
     glTransformFeedbackVaryingsNV(unstableProgram->programId(), 3, unstableUpdate, GL_INTERLEAVED_ATTRIBS);
@@ -139,12 +137,11 @@ GlobalModel::GlobalModel()
 
     initProgram->Bind();
 
-    int locInit[4] =
+    int locInit[3] =
     {
         glGetVaryingLocationNV(initProgram->programId(), "vPosition0"),
         glGetVaryingLocationNV(initProgram->programId(), "vColor0"),
         glGetVaryingLocationNV(initProgram->programId(), "vNormRad0"),
-		glGetVaryingLocationNV(initProgram->programId(), "vColor0"),
     };
 
     glTransformFeedbackVaryingsNV(initProgram->programId(), 3, locInit, GL_INTERLEAVED_ATTRIBS);
@@ -445,6 +442,9 @@ void GlobalModel::fuse(const Eigen::Matrix4f & pose,
 
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE, reinterpret_cast<GLvoid*>(sizeof(Eigen::Vector4f) * 2));
+
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, Vertex::SIZE, reinterpret_cast<GLvoid*>(sizeof(Eigen::Vector4f) * 3));
 
     glEnable(GL_RASTERIZER_DISCARD);
 

@@ -24,11 +24,13 @@ layout(points, max_vertices = 1) out;
 in vec4 vPosition[];
 in vec4 vColor[];
 in vec4 vNormRad[];
+in vec4 vSementic[];
 flat in int updateId[];
 
 out vec4 vPosition0;
 out vec4 vColor0;
 out vec4 vNormRad0;
+out vec4 vSementic0;
 flat out int updateId0;
 
 void main() 
@@ -40,7 +42,7 @@ void main()
 	    vColor0 = vColor[0];
 	    vNormRad0 = vNormRad[0];
 	    updateId0 = updateId[0];
-	    
+	    vSementic0 = vColor[0];//vSementic[0];
 	    //This will be -10, -10 (offscreen) for new unstable vertices, so they don't show in the fragment shader
 	    gl_Position = gl_in[0].gl_Position;
 

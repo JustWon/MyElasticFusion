@@ -23,6 +23,7 @@ layout (location = 0) in vec2 texcoord;
 out vec4 vPosition;
 out vec4 vColor;
 out vec4 vNormRad;
+out vec4 vSementic;
 flat out int updateId;
 
 uniform sampler2D cSampler;
@@ -89,7 +90,7 @@ void main()
     
     //Color for color, obviously
     vColor = textureLod(cSampler, texcoord.xy, 0.0);
-    // vColor = textureLod(semanticsSampler, texcoord.xy, 0.0);
+    vSementic = textureLod(semanticsSampler, texcoord.xy, 0.0);
     
     vColor.x = encodeColor(vColor.xyz);
     vColor.y = 0;

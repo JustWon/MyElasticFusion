@@ -276,7 +276,6 @@ void ElasticFusion::processFrame(const unsigned char * rgb,
     textures[GPUTexture::SEMANTICS]->texture->Upload(semantics, GL_RGB, GL_UNSIGNED_BYTE);
 
     TICK("Preprocess");
-    Upload
     filterDepth();
     metriciseDepth();
 

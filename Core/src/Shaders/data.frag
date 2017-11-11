@@ -21,12 +21,13 @@
 in vec4 vPosition0;
 in vec4 vColor0;
 in vec4 vNormRad0;
+in vec4 vSementic0;
 flat in int updateId0;
 
 layout(location = 0) out vec4 vPosition1;
 layout(location = 1) out vec4 vColor1;
 layout(location = 2) out vec4 vNormRad1;
-
+layout(location = 3) out vec4 vSementic1;
 void main() 
 {
     //If we have a point to update in the existing model, store that
@@ -34,6 +35,7 @@ void main()
     {
         vPosition1 = vPosition0;
         vColor1 = vColor0;
+        vSementic1 = vSementic0;
         vNormRad1 = vNormRad0;
     }
 }
